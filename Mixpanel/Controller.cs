@@ -274,6 +274,10 @@ namespace mixpanel
         internal static Value GetEngageDefaultProperties() {
             if (_autoEngageProperties == null) {
                 Value properties = new Value();
+                {
+                    {"$os", SystemInfo.operatingSystemFamily.ToString()},
+                    {"$device", Application.platform.ToString()},
+                };
                     #if UNITY_IOS
                         properties["$os"] = "Apple";
                         properties["$ios_lib_version"] = Mixpanel.MixpanelUnityVersion;
@@ -289,7 +293,6 @@ namespace mixpanel
                         properties["$android_app_version"] = Application.version;
                     #else
                         properties["$lib_version"] = Mixpanel.MixpanelUnityVersion;
-                        properties["$os"] = SystemInfo.operatingSystemFamily.ToString();
                     #endif
                 _autoEngageProperties = properties;
             }
