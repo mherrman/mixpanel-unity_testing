@@ -271,7 +271,8 @@ namespace mixpanel
             }
         }
 
-        internal static Value GetEngageDefaultProperties() {
+        internal static Value GetEngageDefaultProperties() 
+        {
             if (_autoEngageProperties == null) {
                 Value properties = new Value();
                 {
@@ -297,6 +298,7 @@ namespace mixpanel
                 _autoEngageProperties = properties;
             }
             return _autoEngageProperties;
+        }
 
         private static Value GetEventsDefaultProperties()
         {
