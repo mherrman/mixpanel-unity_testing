@@ -274,12 +274,18 @@ namespace mixpanel
         internal static Value GetEngageDefaultProperties() {
             if (_autoEngageProperties == null) {
                 Value properties = new Value();
+                {
+                    {"$os", SystemInfo.operatingSystemFamily.ToString()},
+                    {"$device", Application.platform.ToString()},
+                };
                     #if UNITY_IOS
+                        properties["$os"] = "Apple";
                         properties["$ios_lib_version"] = Mixpanel.MixpanelUnityVersion;
                         properties["$ios_version"] = Device.systemVersion;
                         properties["$ios_app_release"] = Application.version;
                         properties["$ios_device_model"] = SystemInfo.deviceModel;
                     #elif UNITY_ANDROID
+                        properties["$os"] = "Android";
                         properties["$android_lib_version"] = Mixpanel.MixpanelUnityVersion;
                         properties["$android_os"] = "Android";
                         properties["$android_os_version"] = SystemInfo.operatingSystem;
@@ -291,7 +297,6 @@ namespace mixpanel
                 _autoEngageProperties = properties;
             }
             return _autoEngageProperties;
-        }
 
         private static Value GetEventsDefaultProperties()
         {
